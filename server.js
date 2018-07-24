@@ -4,7 +4,7 @@ const fs = require('fs')
 
 //variable con objeto que tiene variables de entorno
 //if port no existe, usamos el 3000
-const port = 3000
+const port = process.env.PORT || 3000
 
 var app = express()
 //"use" toma una funcion que sea middleware
@@ -90,5 +90,5 @@ app.get('/bad',(req,res)=>{
 })
 
 app.listen(port,()=>{
-  console.log('Server is Up')
+  console.log('Server is Up on '+port)
 })
