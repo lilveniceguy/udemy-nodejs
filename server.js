@@ -83,6 +83,12 @@ app.get('/test',(req,res)=>{
   })
 })
 
+app.get('/project',(req,res)=>{
+  res.render('project.hbs',{
+    pageTitle: 'My Github'
+  })
+})
+
 app.get('/bad',(req,res)=>{
   res.send({
     errorMessage: 'Error Msj'
