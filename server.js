@@ -1,12 +1,14 @@
 const express = require('express')
 const hbs = require('hbs')
 const fs = require('fs')
+const github = require('./helper/github')
 
 //variable con objeto que tiene variables de entorno
 //if port no existe, usamos el 3000
 const port = process.env.PORT || 3000
 
 var app = express()
+
 //"use" toma una funcion que sea middleware
 //send imprime directamente en el DOM
 //applist el segundo argumento es opcional
@@ -42,6 +44,7 @@ app.use((req,res,next)=>{
   // })
   next()
 })
+
 
 //helpers para usar en otro lado, es simplemente una funcion, lo que pueden
 //ser multiples funciones, el primer parametro es el nombre de la funcion
@@ -84,8 +87,15 @@ app.get('/test',(req,res)=>{
 })
 
 app.get('/project',(req,res)=>{
-  res.render('project.hbs',{
-    pageTitle: 'My Github'
+  github.getGithub('lilveniceguy',(errorMsj,results)=>{
+    // console.log(results)
+    res.render('project.hbs',{
+      pageTitle: 'My Github',
+      perfilName: results.name,
+      perfilAvatar: results.avatar,
+      perfilUrl: results.url,
+      perfilBio: results.bio,
+    })
   })
 })
 
